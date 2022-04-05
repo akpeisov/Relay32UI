@@ -1,0 +1,46 @@
+<div class="output-element">
+    <div><b>id</b> {{output.id}}</div>
+    <div>
+        <h2 [class.off]="output.state === 'off'" [class.on]="output.state === 'on'">{{output.state}}</h2>
+    </div>    
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Type</mat-label>
+            <mat-select [(ngModel)]="output.type" name="type">
+                <mat-option >None</mat-option>
+                <mat-option *ngFor="let type of outputTypes" [value]="type.value">
+                    {{type.viewValue}}
+                </mat-option>              
+            </mat-select>
+        </mat-form-field>        
+    </div>
+    <div *ngIf="output.timer > 0">
+        Remain {{output.timer}}
+    </div>
+    <div>        
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input [(ngModel)]="output.name" type="text" matInput placeholder="Output 0">
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field *ngIf="output.type == null" class="example-full-width" appearance="fill">
+            <mat-label>Duration, sec</mat-label>
+            <input [(ngModel)]="output.duration" type="number" matInput placeholder="0">
+        </mat-form-field>
+    </div>  
+    <div *ngIf="output.type === 't'">
+        <div>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>On duration, sec</mat-label>
+                <input [(ngModel)]="output.on" type="number" matInput placeholder="0">
+            </mat-form-field>
+        </div>  
+        <div>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Off duration, sec</mat-label>
+                <input [(ngModel)]="output.off" type="number" matInput placeholder="0">
+            </mat-form-field>
+        </div>
+    </div>
+</div>

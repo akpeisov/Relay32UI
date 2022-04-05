@@ -1,0 +1,161 @@
+{
+   "outputs":    [
+            {
+         "id": 0,
+         "name": "Out 0",
+         "state": "on",
+         "duration": 0,
+         "timer": 0
+      },
+            {
+         "id": 1,
+         "name": "Out 1",
+         "state": "off",
+         "duration": 0,
+         "timer": 0
+      },
+            {
+         "id": 2,
+         "name": "Light",
+         "state": "on",
+         "duration": 0,
+         "timer": 0
+      },
+            {
+         "id": 3,
+         "name": "Pump",
+         "state": "off",
+         "type": "t",
+         "on": 20,
+         "off": 1200,
+         "duration": 0,
+         "timer": 914
+      }
+   ],
+   "inputs":    [
+            {
+         "id": 16,
+         "name": "Svc 0",
+         "type": "BTN",
+         "rules": [         {
+            "event": "toggle",
+            "output": 0,
+            "action": "toggle",
+            "duration": 0
+         }],
+         "btntime": 5305
+      },
+            {
+         "id": 17,
+         "name": "Svc 1",
+         "type": "BTN",
+         "rules": [         {
+            "event": "toggle",
+            "output": 1,
+            "action": "toggle",
+            "duration": 0
+         }],
+         "btntime": 5314
+      },
+            {
+         "id": 18,
+         "name": "Svc 2",
+         "type": "BTN",
+         "rules": [         {
+            "event": "toggle",
+            "output": 2,
+            "action": "toggle",
+            "duration": 0
+         }],
+         "btntime": 5324
+      },
+            {
+         "id": 19,
+         "name": "Svc 3",
+         "type": "BTN",
+         "rules": [         {
+            "event": "toggle",
+            "output": 3,
+            "action": "toggle",
+            "duration": 0
+         }],
+         "btntime": 5334
+      },
+            {
+         "id": 0,
+         "name": "In 0",
+         "type": "SW",
+         "rules":          [
+                        {
+               "event": "on",
+               "output": 0,
+               "action": "on",
+               "duration": 0
+            },
+                        {
+               "event": "off",
+               "output": 0,
+               "action": "off"
+            }
+         ],
+         "state": "on"
+      },
+            {
+         "id": 1,
+         "name": "In 1",
+         "type": "SW",
+         "rules":          [
+                        {
+               "event": "on",
+               "output": 1,
+               "action": "on",
+               "duration": 0
+            },
+                        {
+               "event": "off",
+               "output": 1,
+               "action": "off"
+            }
+         ],
+         "state": "on"
+      },
+            {
+         "id": 2,
+         "name": "In 2",
+         "type": "SW",
+         "rules":          [
+                        {
+               "event": "on",
+               "output": 2,
+               "action": "on",
+               "duration": 0
+            },
+                        {
+               "event": "off",
+               "output": 2,
+               "action": "off"
+            }
+         ],
+         "state": "on"
+      },
+            {
+         "id": 3,
+         "name": "In 3",
+         "type": "SW",
+         "rules":          [
+                        {
+               "event": "on",
+               "output": 3,
+               "action": "on",
+               "duration": 0
+            },
+                        {
+               "event": "off",
+               "output": 3,
+               "action": "off"
+            }
+         ],
+         "state": "on"
+      }
+   ]
+}

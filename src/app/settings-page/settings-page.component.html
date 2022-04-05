@@ -1,0 +1,183 @@
+<h2>Settings page</h2>
+
+<div>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Network settings
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-checkbox [(ngModel)]="settings.eth.enabled" class="example-margin">Ethernet</mat-checkbox>
+            <div id="eth" *ngIf="settings.eth.enabled">
+                <mat-checkbox [(ngModel)]="settings.eth.dhcp" class="example-margin">DHCP</mat-checkbox>
+                <div>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Ip address</mat-label>
+                        <!-- <input [(ngModel)]="settings.eth.ip" type="text" matInput [formControl]="ipFormControl"
+                        [errorStateMatcher]="matcher" placeholder="192.168.88.2" readonly> -->
+                        <input [(ngModel)]="settings.eth.ip" type="text" matInput placeholder="192.168.88.2"
+                            [readonly]="settings.eth.dhcp">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Netmask</mat-label>
+                        <input [(ngModel)]="settings.eth.netmask" type="text" matInput [readonly]="settings.eth.dhcp"
+                            placeholder="255.255.255.0">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Gateway address</mat-label>
+                        <input [(ngModel)]="settings.eth.gateway" type="text" matInput placeholder="192.168.88.1"
+                            [readonly]="settings.eth.dhcp">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Reset GPIO</mat-label>
+                        <input [(ngModel)]="settings.eth.resetGPIO" type="number" matInput min="0" max="20"
+                            placeholder="0">
+                    </mat-form-field>
+                </div>
+            </div>
+            <span></span>
+            <div>
+                <mat-checkbox [(ngModel)]="settings.wifi.enabled" class="example-margin">WiFi</mat-checkbox>
+                <div id="wifi" *ngIf="settings.wifi.enabled">
+                    <mat-checkbox [(ngModel)]="settings.wifi.dhcp" class="example-margin">DHCP</mat-checkbox>
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Ip address</mat-label>
+                            <!-- <input [(ngModel)]="settings.eth.ip" type="text" matInput [formControl]="ipFormControl"
+                            [errorStateMatcher]="matcher" placeholder="192.168.88.2" readonly> -->
+                            <input [(ngModel)]="settings.wifi.ip" type="text" matInput placeholder="192.168.88.2"
+                                [readonly]="settings.wifi.dhcp">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Netmask</mat-label>
+                            <input [(ngModel)]="settings.wifi.netmask" type="text" matInput
+                                [readonly]="settings.wifi.dhcp" placeholder="255.255.255.0">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Gateway address</mat-label>
+                            <input [(ngModel)]="settings.wifi.gateway" type="text" matInput placeholder="192.168.88.1"
+                                [readonly]="settings.wifi.dhcp">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>DNS</mat-label>
+                    <input [(ngModel)]="settings.dns" type="text" matInput placeholder="192.168.99.98">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Hostname</mat-label>
+                    <input [(ngModel)]="settings.hostname" type="text" matInput placeholder="Host name">
+                </mat-form-field>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    NTP settings
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>NTP Server</mat-label>
+                    <input [(ngModel)]="settings.ntpserver" type="text" matInput placeholder="pool.ntp.org">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>NTP TimeZone</mat-label>
+                    <input [(ngModel)]="settings.ntpTZ" type="text" matInput placeholder="UTC-6:00">
+                </mat-form-field>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    MQTT
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div>
+                <mat-checkbox [(ngModel)]="settings.mqtt.enabled" class="example-margin">MQTT enabled</mat-checkbox>
+                <div id="mqtt" *ngIf="settings.mqtt.enabled">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>MQTT URL</mat-label>
+                        <input [(ngModel)]="settings.mqtt.url" type="text" matInput
+                            placeholder="mqtt://mqtt:mqtt1@192.168.4.7:1883">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    FTP
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div>
+                <mat-checkbox [(ngModel)]="settings.ftp.enabled" class="example-margin">FTP enabled</mat-checkbox>
+                <div id="ftp" *ngIf="settings.ftp.enabled">
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Username</mat-label>
+                            <input [(ngModel)]="settings.ftp.user" type="text" matInput placeholder="admin">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Password</mat-label>
+                            <input [(ngModel)]="settings.ftp.pass" type="text" matInput placeholder="admin">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Remote log
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div>
+                <mat-checkbox [(ngModel)]="settings.rlog.enabled" class="example-margin">RLOG enabled</mat-checkbox>
+                <div id="ftp" *ngIf="settings.ftp.enabled">
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Server</mat-label>
+                            <input [(ngModel)]="settings.rlog.server" type="text" matInput placeholder="admin">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Port</mat-label>
+                            <input [(ngModel)]="settings.rlog.port" type="number" matInput placeholder="admin">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <button mat-raised-button color="primary" (click)="saveButton()">Save</button>
+</div>
+
+<!-- 
+"enabled": true,
+"dhcp": true,
+"ip": "192.168.99.9",
+"netmask": "255.255.255.0",
+"gateway": "192.168.99.98",
+"resetGPIO": 0 -->

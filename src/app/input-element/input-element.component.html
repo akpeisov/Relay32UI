@@ -1,0 +1,69 @@
+<div class="input-element">
+    <div><b>id</b> {{input.id}}</div>
+    <div>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input [(ngModel)]="input.name" type="text" matInput placeholder="Input 0">
+        </mat-form-field>
+    </div>    
+    <div>
+        <mat-form-field appearance="fill" *ngIf="input.id < 16">
+            <mat-label>Type</mat-label>
+            <mat-select [(ngModel)]="input.type" name="btype">
+                <mat-option *ngFor="let btype of btypes" [value]="btype.value">
+                    {{btype.viewValue}}
+                </mat-option>              
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="input.id > 15">
+            Service button
+        </div>
+    </div>
+    <div id="rules">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Rules
+                </mat-panel-title>
+            </mat-expansion-panel-header>      
+            <div *ngFor="let rule of input.rules">
+                <mat-form-field appearance="fill">
+                    <mat-label>Event</mat-label>
+                    <mat-select [(ngModel)]="rule.event" name="events">
+                        <mat-option *ngFor="let event of events" [value]="event.value">
+                            {{event.viewValue}}
+                        </mat-option>              
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Output</mat-label>
+                    <!-- TODO: подумать как сюда запихать список выходов. А еще со слейвами надо подумать... -->
+                    <mat-select [(ngModel)]="rule.output" name="output">
+                        <mat-option *ngFor="let output of outputs" [value]="output.id">
+                            {{output.name}}
+                        </mat-option>              
+                    </mat-select>
+                </mat-form-field>
+                <!-- <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Output</mat-label>
+                    <input [(ngModel)]="rule.output" type="number" matInput placeholder="0">
+                </mat-form-field> -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Action</mat-label>
+                    <mat-select [(ngModel)]="rule.action" name="actions">
+                        <mat-option *ngFor="let action of actions" [value]="action.value">
+                            {{action.viewValue}}
+                        </mat-option>              
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field *ngIf="rule.action === 'on'" class="example-full-width" appearance="fill">
+                    <mat-label>Duration, sec</mat-label>
+                    <input [(ngModel)]="rule.duration" type="number" matInput placeholder="0">
+                </mat-form-field>                
+                <button mat-raised-button color="primary" (click)="deleteRule(rule)">Delete</button>
+            </div>
+            <button mat-raised-button color="primary" (click)="addRule()">Add rule</button>
+        </mat-expansion-panel>
+        
+    </div>
+</div>
