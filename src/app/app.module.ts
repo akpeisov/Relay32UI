@@ -13,7 +13,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInput, MatInputModule} from '@angular/material/input';
+import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { LayoutModule } from '@angular/cdk/layout';
 import { SettingsPageComponent } from './settings-page/settings-page.component';
@@ -24,10 +24,14 @@ import { OutputElementComponent } from './output-element/output-element.componen
 import { OutputsPageComponent } from './outputs-page/outputs-page.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { InputElementComponent } from './input-element/input-element.component';
+import { SchedulerPageComponent } from './scheduler-page/scheduler-page.component';
+import { SchedulerElementComponent } from './scheduler-element/scheduler-element.component';
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 
 const appRoutes: Routes = [
   { path: '', component: OutputsPageComponent},
   { path: 'settings', component: SettingsPageComponent},
+  { path: 'scheduler', component: SchedulerPageComponent},
   { path: 'inputs', component: InputsPageComponent},
   { path: '**', component: NotFoundComponent }
 ];
@@ -39,7 +43,9 @@ const appRoutes: Routes = [
     SettingsPageComponent,
     OutputsPageComponent,
     InputsPageComponent,
-    InputElementComponent
+    InputElementComponent,
+    SchedulerPageComponent,
+    SchedulerElementComponent
   ],
   imports: [
     BrowserModule,
@@ -56,10 +62,13 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatExpansionModule,
-    MatSelectModule,
+    MatSelectModule,        
     LayoutModule,
     RouterModule.forRoot(appRoutes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMatTimepickerModule,
+    // NgxMaterialTimepickerModule,
+    // NgxTimepickerFieldComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

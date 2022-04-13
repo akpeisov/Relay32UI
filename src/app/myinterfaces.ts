@@ -23,6 +23,20 @@ export interface TInput {
     rules: TRule[];    
   }  
 
+export interface TAction {
+  output: number;
+  action: string;
+  duration: number;
+}  
+
+export interface TTask {
+  time: number;
+  name: string;
+  grace: number;
+  done: boolean;
+  actions: TAction[];
+}
+
 export interface TDeviceInfo {    
     freememory: number;
     uptime: string;

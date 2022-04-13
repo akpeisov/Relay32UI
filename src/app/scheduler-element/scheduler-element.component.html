@@ -1,0 +1,57 @@
+<div class="scheduler-element">
+    <div>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input [(ngModel)]="task.name" type="text" matInput placeholder="Task name">
+        </mat-form-field>
+    </div>    
+    <div>        
+        <mat-form-field appearance="fill">
+            <mat-label>Time</mat-label>
+            <input matInput [(ngModel)]="time" [format]=24 [ngxMatTimepicker]="picker" (ngModelChange)="timeChanged()">
+            <ngx-mat-timepicker #picker></ngx-mat-timepicker>
+        </mat-form-field>        
+    </div>
+    <div>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Grace time</mat-label>
+            <!-- <input [(ngModel)]="task.grace" type="number" matInput placeholder="0"> -->
+            <input matInput [(ngModel)]="graceTime" [format]=24 [ngxMatTimepicker]="picker2" (ngModelChange)="graceTimeChanged()">
+            <ngx-mat-timepicker #picker2></ngx-mat-timepicker>
+        </mat-form-field>                        
+    </div>
+    <div id="actions">
+        <mat-expansion-panel >
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Actions
+                </mat-panel-title>
+            </mat-expansion-panel-header>      
+            <div *ngFor="let action of task.actions">                
+                <mat-form-field appearance="fill">
+                    <mat-label>Output</mat-label>
+                    <mat-select [(ngModel)]="action.output" name="output">
+                        <mat-option *ngFor="let output of outputs" [value]="output.id">
+                            {{output.name}}
+                        </mat-option>              
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Action</mat-label>
+                    <mat-select [(ngModel)]="action.action" name="actions">
+                        <mat-option *ngFor="let action of actions" [value]="action.value">
+                            {{action.viewValue}}
+                        </mat-option>              
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field *ngIf="action.action === 'on'" class="example-full-width" appearance="fill">
+                    <mat-label>Duration, sec</mat-label>
+                    <input [(ngModel)]="action.duration" type="number" matInput placeholder="0">
+                </mat-form-field>                 
+                <button mat-raised-button color="warn" (click)="deleteAction(action)">Delete</button>
+            </div>
+            <button mat-raised-button color="primary" (click)="addAction()">Add action</button>
+        </mat-expansion-panel>
+        
+    </div>    
+</div>

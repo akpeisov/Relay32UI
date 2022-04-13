@@ -15,6 +15,7 @@ export class RestServices {
   inputsUrl = '/service/config/inputs';
   infoUrl = '/ui/deviceInfo'; //'/api/deviceInfo';
   networkUrl = 'service/config/network';
+  schedulerUrl = '/service/config/scheduler'
 
   public getOutputs(): Observable<TOutput[]> {
     return this.http.get<TOutput[]>(this.outputsUrl);
@@ -41,5 +42,12 @@ export class RestServices {
   }
   public setNetwork(network: any) {
     return this.http.post(this.networkUrl, network);
+  }
+
+  public getScheduler(): Observable<any> {
+    return this.http.get(this.schedulerUrl);
+  }
+  public setScheduler(scheduler: any) {
+    return this.http.post(this.schedulerUrl, scheduler);
   }
 }

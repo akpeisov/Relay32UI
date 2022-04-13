@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TOutput } from 'backup/src/app/toutput';
-import { TInput, TRule, SelectType } from '../myinterfaces';
+import { TOutput, TInput, TRule, SelectType } from '../myinterfaces';
 
 @Component({
   selector: 'app-input-element',
