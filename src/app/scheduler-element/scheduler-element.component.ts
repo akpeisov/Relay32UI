@@ -19,6 +19,14 @@ export class SchedulerElementComponent implements OnInit {
     {value: 'toggle', viewValue: 'Toggle'},
   ];
   
+  dow:any[] = [{id: 0, name: "Sunday"},
+               {id: 1, name: "Monday"},
+               {id: 2, name: "Tuesday"},
+               {id: 3, name: "Wednesday"},
+               {id: 4, name: "Thursday"},
+               {id: 5, name: "Friday"},
+               {id: 6, name: "Saturday"}]
+
   private timeToNum(time: any): number {
     let t = time.split(":");        
     return +t[0]*60 + +t[1];
@@ -34,6 +42,9 @@ export class SchedulerElementComponent implements OnInit {
     // this.time = (this.task.time / 60 | 0).toString() + ":" + (this.task.time - 60*(this.task.time / 60 | 0)).toString()
     this.time = this.numToTime(this.task.time)    
     this.graceTime = this.numToTime(this.task.grace)
+    // init day of week
+    if (this.task.dow == null)
+      this.task.dow = []    
   }
 
   addAction(): void {
@@ -60,5 +71,23 @@ export class SchedulerElementComponent implements OnInit {
   }
   graceTimeChanged(): void {
     this.task.grace = this.timeToNum(this.graceTime)//+t[0]*60 + +t[1];
+  }
+
+  dowChange(id: number, event: any): void {
+    // console.log(id, event.checked)
+    if (event.checked) {
+      this.task.dow.push(id)
+    } else {
+      const index = this.task.dow.indexOf(id, 0);
+      if (index > -1) {
+        this.task.dow.splice(index, 1);
+      }
+    }
+  }
+
+  isDow(id: number): boolean {
+    if (this.task.dow == null)
+      return false
+    return this.task.dow.includes(id);
   }
 }

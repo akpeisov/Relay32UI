@@ -34,7 +34,9 @@ export interface TTask {
   name: string;
   grace: number;
   done: boolean;
+  enabled: boolean;
   actions: TAction[];
+  dow: any[];
 }
 
 export interface TDeviceInfo {    

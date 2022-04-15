@@ -1,4 +1,5 @@
 <div class="scheduler-element">
+    <mat-checkbox [(ngModel)]="task.enabled" class="example-margin">Enabled</mat-checkbox>
     <div>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Name</mat-label>
@@ -19,6 +20,14 @@
             <input matInput [(ngModel)]="graceTime" [format]=24 [ngxMatTimepicker]="picker2" (ngModelChange)="graceTimeChanged()">
             <ngx-mat-timepicker #picker2></ngx-mat-timepicker>
         </mat-form-field>                        
+    </div>
+    <div>
+        <li *ngFor="let d of dow">
+            <mat-checkbox [checked]="isDow(d.id)"
+                      (change)="dowChange(d.id, $event)">
+            {{d.name}}
+        </mat-checkbox>
+        </li>
     </div>
     <div id="actions">
         <mat-expansion-panel >

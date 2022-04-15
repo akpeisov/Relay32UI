@@ -34,7 +34,9 @@ export class SchedulerPageComponent implements OnInit {
       grace: 0,
       time: 0,
       done: false,
+      enabled: true,
       actions: [],
+      dow: []
     };
 
     // let task: TTask;
