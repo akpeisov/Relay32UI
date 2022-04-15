@@ -90,4 +90,10 @@ export class SchedulerElementComponent implements OnInit {
       return false
     return this.task.dow.includes(id);
   }
+
+  panelOpenState: boolean = false;
+  onEnableClick(enabled: any): void {    
+    if (!enabled.checked)
+      this.panelOpenState = false    
+  }
 }

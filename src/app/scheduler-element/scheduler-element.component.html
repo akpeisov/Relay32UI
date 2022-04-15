@@ -1,15 +1,15 @@
 <div class="scheduler-element">
-    <mat-checkbox [(ngModel)]="task.enabled" class="example-margin">Enabled</mat-checkbox>
+    <mat-checkbox (change)="onEnableClick($event)" [(ngModel)]="task.enabled" class="example-margin">Enabled</mat-checkbox>
     <div>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Name</mat-label>
-            <input [(ngModel)]="task.name" type="text" matInput placeholder="Task name">
+            <input [(ngModel)]="task.name" type="text" matInput placeholder="Task name" [disabled]="!task.enabled"> 
         </mat-form-field>
     </div>    
     <div>        
         <mat-form-field appearance="fill">
             <mat-label>Time</mat-label>
-            <input matInput [(ngModel)]="time" [format]=24 [ngxMatTimepicker]="picker" (ngModelChange)="timeChanged()">
+            <input matInput [(ngModel)]="time" [format]=24 [ngxMatTimepicker]="picker" (ngModelChange)="timeChanged()" [disabled]="!task.enabled">
             <ngx-mat-timepicker #picker></ngx-mat-timepicker>
         </mat-form-field>        
     </div>
@@ -17,20 +17,19 @@
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Grace time</mat-label>
             <!-- <input [(ngModel)]="task.grace" type="number" matInput placeholder="0"> -->
-            <input matInput [(ngModel)]="graceTime" [format]=24 [ngxMatTimepicker]="picker2" (ngModelChange)="graceTimeChanged()">
+            <input matInput [(ngModel)]="graceTime" [format]=24 [ngxMatTimepicker]="picker2" (ngModelChange)="graceTimeChanged()" [disabled]="!task.enabled">
             <ngx-mat-timepicker #picker2></ngx-mat-timepicker>
         </mat-form-field>                        
     </div>
     <div>
         <li *ngFor="let d of dow">
-            <mat-checkbox [checked]="isDow(d.id)"
-                      (change)="dowChange(d.id, $event)">
+            <mat-checkbox [checked]="isDow(d.id)" (change)="dowChange(d.id, $event)" [disabled]="!task.enabled">
             {{d.name}}
         </mat-checkbox>
         </li>
     </div>
     <div id="actions">
-        <mat-expansion-panel >
+        <mat-expansion-panel [disabled]="!task.enabled" [(expanded)]="panelOpenState">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Actions
