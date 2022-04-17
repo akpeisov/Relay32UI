@@ -29,11 +29,15 @@
             <div *ngFor="let rule of input.rules">
                 <mat-form-field appearance="fill">
                     <mat-label>Event</mat-label>
-                    <mat-select [(ngModel)]="rule.event" name="events">
-                        <mat-option *ngFor="let event of events" [value]="event.value">
+                    <mat-select *ngIf="input.type === 'SW'" [(ngModel)]="rule.event" name="events">
+                        <mat-option *ngFor="let event of events" [value]="event.value" [disabled]="event.disabled">
                             {{event.viewValue}}
                         </mat-option>              
+                    </mat-select>                    
+                    <mat-select *ngIf="input.type != 'SW'" [(ngModel)]="rule.event" name="events" disabled>
+                        <mat-option value="toggle">Toggle</mat-option>
                     </mat-select>
+
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Output</mat-label>

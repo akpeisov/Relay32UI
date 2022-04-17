@@ -1,13 +1,16 @@
 export interface TOutput {    
-    id: number;
+    id?: number;
     name: string;
-    state: string;
+    state?: string;
     type: string;
-    on: number;
-    off: number;
-    duration: number;
-    timer: number;
-  }
+    on?: number;
+    off?: number;
+    duration?: number;
+    timer?: number;
+    rid?: number;
+    slaveid?: number;
+    default?: string;
+}
 
 export interface TRule {    
     event: string;
@@ -50,4 +53,5 @@ export interface TDeviceInfo {
 export interface SelectType {
     value?: string;
     viewValue: string;
+    disabled?: boolean;
   }

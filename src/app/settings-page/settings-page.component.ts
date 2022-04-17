@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestServices } from '../rest.services';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { SelectType } from '../myinterfaces';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -23,7 +24,13 @@ export class SettingsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.restServices.getNetwork().subscribe(data => {
-      this.settings = data;          
+      this.settings = data;
+    console.log(this.settings)
+    if (this.settings.modbus == null)  
+      this.settings.modbus = {}
+    if (this.settings.modbus.mode == null)  
+      this.settings.modbus.mode = "none"
+    console.log(this.settings)  
     }, error => console.log(error));
   }
 
@@ -36,4 +43,10 @@ export class SettingsPageComponent implements OnInit {
       this.settings = data;          
     }, error => console.log(error));
   }
+
+  modbusModes: SelectType[] = [    
+    {value: 'none', viewValue: 'None'},
+    {value: 'master', viewValue: 'Master'},
+    {value: 'slave', viewValue: 'Slave'},
+  ];
 }

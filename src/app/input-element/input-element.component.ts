@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { TOutput, TInput, TRule, SelectType } from '../myinterfaces';
 
 @Component({
@@ -19,20 +19,33 @@ export class InputElementComponent implements OnInit {
   events: SelectType[] = [    
     {value: 'on', viewValue: 'On'},
     {value: 'off', viewValue: 'Off'},
-    {value: 'toggle', viewValue: 'Toggle'},
+    // {value: 'toggle', viewValue: 'Toggle'},
   ];
 
   actions: SelectType[] = [    
     {value: 'on', viewValue: 'On'},
     {value: 'off', viewValue: 'Off'},
     {value: 'toggle', viewValue: 'Toggle'},
+    {value: 'allOff', viewValue: 'All off'},
   ];
 
   ngOnInit(): void {
   }
 
-  @Input() input!: TInput;
+  private _input: TInput;
+  //@Input() input!: TInput;
   @Input() outputs!: TOutput[];
+
+  @Input() set input(value: TInput) {  
+    this._input = value
+    // let o = this.events.find(e => e.value === 'on');
+    // if (o != null) {
+    //   o.disabled = value.type != 'BTN'
+    // }    
+  }
+  get input(): TInput {
+    return this._input;
+  }
 
   deleteRule(rule: any) {
     const index = this.input.rules.indexOf(rule);    
@@ -44,7 +57,7 @@ export class InputElementComponent implements OnInit {
     let rule: TRule = {
       action: "on",
       duration: 0,
-      event: "on",
+      event: this.input.type == 'SW' ? "on" : "toggle",
       output: 0
     };
     this.input.rules.push(rule);

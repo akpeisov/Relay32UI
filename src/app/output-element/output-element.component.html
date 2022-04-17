@@ -1,26 +1,40 @@
-<div class="output-element">
-    <div><b>id</b> {{output.id}}</div>
+<div class="output-element">    
+    <div *ngIf="output.type != 'v'">
+        <b>id</b> {{output.id}}
+    </div>
     <div>
         <h2 [class.off]="output.state === 'off'" [class.on]="output.state === 'on'">{{output.state}}</h2>
     </div>    
-    <div>
+    <div *ngIf="output.type != 'v'">
         <mat-form-field appearance="fill">
             <mat-label>Type</mat-label>
-            <mat-select [(ngModel)]="output.type" name="type">
-                <mat-option >None</mat-option>
-                <mat-option *ngFor="let type of outputTypes" [value]="type.value">
+            <mat-select [(ngModel)]="output.type" name="type">                
+                <mat-option *ngFor="let type of outputTypes" [value]="type.value" [disabled]="type.disabled">
                     {{type.viewValue}}
                 </mat-option>              
             </mat-select>
         </mat-form-field>        
     </div>
-    <div *ngIf="output.timer > 0">
+    <div *ngIf="output.type === 'v'">
+        Virtual output
+    </div>    
+    <div *ngIf="output.timer != null && output.timer > 0">
         Remain {{output.timer}}
     </div>
     <div>        
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Name</mat-label>
             <input [(ngModel)]="output.name" type="text" matInput placeholder="Output 0">
+        </mat-form-field>
+    </div>
+    <div *ngIf="output.type === 'v'">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Slave id</mat-label>
+            <input [(ngModel)]="output.slaveid" type="number" min="1" max="10" required matInput placeholder="1">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Output id</mat-label>
+            <input [(ngModel)]="output.rid" type="number" min="0" max="15" required matInput placeholder="0">
         </mat-form-field>
     </div>
     <div>
@@ -42,5 +56,18 @@
                 <input [(ngModel)]="output.off" type="number" matInput placeholder="0">
             </mat-form-field>
         </div>
+    </div>    
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Default value (when boot)</mat-label>
+            <mat-select [(ngModel)]="output.default" name="type">                
+                <mat-option *ngFor="let type of defaultTypes" [value]="type.value">
+                    {{type.viewValue}}
+                </mat-option>              
+            </mat-select>
+        </mat-form-field>        
+    </div>
+    <div *ngIf="output.type === 'v'">
+        <button mat-raised-button color="primary" (click)="deleteOutput()">Delete</button>
     </div>
 </div>

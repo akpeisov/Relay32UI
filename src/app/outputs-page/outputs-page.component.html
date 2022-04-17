@@ -1,2 +1,6 @@
-<app-output-element *ngFor="let output of outputs " [output]="output"></app-output-element>
+<app-output-element *ngFor="let output of outputs " [output]="output" [modbus]="modBusMaster"></app-output-element>
+<div *ngIf="modBusMaster">
+    <button mat-raised-button color="basic" (click)="addOutput()">Add virtual output</button>
+</div>
+
 <button mat-raised-button color="primary" (click)="saveButton()">Save</button>

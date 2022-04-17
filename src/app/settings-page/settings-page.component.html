@@ -9,7 +9,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <mat-checkbox [(ngModel)]="settings.eth.enabled" class="example-margin">Ethernet</mat-checkbox>
+            <mat-checkbox [(ngModel)]="settings.eth.enabled" class="example-margin" color="primary">Ethernet</mat-checkbox>
             <div id="eth" *ngIf="settings.eth.enabled">
                 <mat-checkbox [(ngModel)]="settings.eth.dhcp" class="example-margin">DHCP</mat-checkbox>
                 <div>
@@ -45,7 +45,7 @@
             </div>
             <span></span>
             <div>
-                <mat-checkbox [(ngModel)]="settings.wifi.enabled" class="example-margin">WiFi</mat-checkbox>
+                <mat-checkbox [(ngModel)]="settings.wifi.enabled" class="example-margin" color="primary">WiFi</mat-checkbox>
                 <div id="wifi" *ngIf="settings.wifi.enabled">
                     <mat-checkbox [(ngModel)]="settings.wifi.dhcp" class="example-margin">DHCP</mat-checkbox>
                     <div>
@@ -168,6 +168,39 @@
                         </mat-form-field>
                     </div>
                 </div>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    ModBus
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Mode</mat-label>
+                    <mat-select [(ngModel)]="settings.modbus.mode" name="modes">
+                        <mat-option *ngFor="let mode of modbusModes" [value]="mode.value">
+                            {{mode.viewValue}}
+                        </mat-option>              
+                    </mat-select>
+                </mat-form-field>
+                
+                <!-- <mat-checkbox [(ngModel)]="settings.modbus.enabled" class="example-margin">RLOG enabled</mat-checkbox>
+                <div id="ftp" *ngIf="settings.ftp.enabled">
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Server</mat-label>
+                            <input [(ngModel)]="settings.rlog.server" type="text" matInput placeholder="admin">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Port</mat-label>
+                            <input [(ngModel)]="settings.rlog.port" type="number" matInput placeholder="admin">
+                        </mat-form-field>
+                    </div>
+                </div> -->
             </div>
         </mat-expansion-panel>
     </mat-accordion>

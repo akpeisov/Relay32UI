@@ -13,6 +13,8 @@ export class OutputsPageComponent implements OnInit {
 
   outputs!: TOutput[];
   interval: any;
+  settings!: any;
+  modBusMaster: boolean = false
 
   ngOnInit(): void {
     this.refreshData(); 
@@ -33,13 +35,32 @@ export class OutputsPageComponent implements OnInit {
     this.restServices.getOutputs().subscribe(data => {
       this.outputs = data;          
     }, error => console.log(error));
+
+    this.restServices.getNetwork().subscribe(data => {
+      this.settings = data;        
+    if ((this.settings.modbus != null) && (this.settings.modbus.mode === "master"))
+      this.modBusMaster = true
+    // console.log("111 ", this.modBusMaster)  
+    }, error => console.log(error));
+    
   }
 
   saveButton() {
-    console.log("save")
     this.restServices.setOutputs(this.outputs).subscribe(data => {
       console.log(data);          
     }, error => console.log(error));
     // TODO : get error
+  }
+
+  addOutput() {
+    console.log("add")    
+    let output: TOutput = {
+      type: 'v',
+      rid: 0,
+      slaveid: 1,
+      name: "New virtual out",
+      default: "off"
+    }
+    this.outputs.push(output);
   }
 }
