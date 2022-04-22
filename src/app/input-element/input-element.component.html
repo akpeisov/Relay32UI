@@ -37,7 +37,6 @@
                     <mat-select *ngIf="input.type != 'SW'" [(ngModel)]="rule.event" name="events" disabled>
                         <mat-option value="toggle">Toggle</mat-option>
                     </mat-select>
-
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Output</mat-label>
@@ -48,10 +47,6 @@
                         </mat-option>              
                     </mat-select>
                 </mat-form-field>
-                <!-- <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Output</mat-label>
-                    <input [(ngModel)]="rule.output" type="number" matInput placeholder="0">
-                </mat-form-field> -->
                 <mat-form-field appearance="fill">
                     <mat-label>Action</mat-label>
                     <mat-select [(ngModel)]="rule.action" name="actions">
@@ -65,6 +60,57 @@
                     <input [(ngModel)]="rule.duration" type="number" matInput placeholder="0">
                 </mat-form-field>                
                 <button mat-raised-button color="primary" (click)="deleteRule(rule)">Delete</button>
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            ACL
+                        </mat-panel-title>
+                    </mat-expansion-panel-header> 
+                    <div *ngFor="let acl of rule.acl">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Type</mat-label>
+                            <mat-select [(ngModel)]="acl.type" name="acltype">
+                                <mat-option *ngFor="let acltype of acltypes" [value]="acltype.value">
+                                    {{acltype.viewValue}}
+                                </mat-option>              
+                            </mat-select>       
+                        </mat-form-field>              
+                        <mat-form-field appearance="fill">
+                            <mat-label>Input/output</mat-label>   
+                            <mat-select [(ngModel)]="acl.io" name="aclIOtype">
+                                <mat-option *ngFor="let acliotype of acliotypes" [value]="acliotype.value">
+                                    {{acliotype.viewValue}}
+                                </mat-option>              
+                            </mat-select>
+                        </mat-form-field>              
+                        <mat-form-field appearance="fill">
+                            <mat-label *ngIf="acl.io === 'i'">Input</mat-label>
+                            <mat-label *ngIf="acl.io === 'o'">Output</mat-label>                            
+                            <mat-select *ngIf="acl.io === 'o'" [(ngModel)]="acl.id" name="aclId">                                
+                                <mat-option *ngFor="let output of outputs" [value]="output.id">
+                                    {{output.name}}
+                                </mat-option>                                                 
+                            </mat-select>
+                            <mat-select *ngIf="acl.io === 'i'" [(ngModel)]="acl.id" name="aclId">                                
+                                <mat-option *ngFor="let input of inputs" [value]="input.id">
+                                    {{input.name}}
+                                </mat-option>                                                 
+                            </mat-select>
+                        </mat-form-field>   
+                        <mat-form-field appearance="fill">
+                            <mat-label>State</mat-label>
+                            <mat-select [(ngModel)]="acl.state" name="state">
+                                <mat-option *ngFor="let event of events" [value]="event.value">
+                                    {{event.viewValue}}
+                                </mat-option>              
+                            </mat-select>
+                        </mat-form-field>
+                        <button mat-raised-button color="primary" (click)="deleteAcl(rule, acl)">Delete</button>
+                    </div>   
+                    <button mat-raised-button color="primary" (click)="addAcl(rule)">Add acl</button>
+                </mat-expansion-panel>    
+                
             </div>
             <button mat-raised-button color="primary" (click)="addRule()">Add rule</button>
         </mat-expansion-panel>

@@ -16,8 +16,16 @@ export interface TRule {
     event: string;
     output: number;
     duration: number;
-    action: string;    
+    action: string;
+    acl?: TACL[];
   }  
+
+export interface TACL {    
+    type: string;
+    id: number;
+    io: string;
+    state: string;
+  }    
 
 export interface TInput {    
     id: number;
