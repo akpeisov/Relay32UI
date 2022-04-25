@@ -18,6 +18,11 @@ export class SchedulerElementComponent implements OnInit {
     {value: 'off', viewValue: 'Off'},
     {value: 'toggle', viewValue: 'Toggle'},
   ];
+
+  actiontypes: SelectType[] = [    
+    {value: 's', viewValue: 'Simple'},
+    {value: 'svc', viewValue: 'Service'},    
+  ];
   
   dow:any[] = [{id: 0, name: "Sunday"},
                {id: 1, name: "Monday"},

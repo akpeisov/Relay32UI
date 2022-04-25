@@ -40,6 +40,14 @@
             </mat-expansion-panel-header>      
             <div *ngFor="let action of task.actions">                
                 <mat-form-field appearance="fill">
+                    <mat-label>Type</mat-label>
+                    <mat-select [(ngModel)]="action.type" name="actiontype">
+                        <mat-option *ngFor="let actiontype of actiontypes" [value]="actiontype.value">
+                            {{actiontype.viewValue}}
+                        </mat-option>              
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field *ngIf="action.type != 'svc'" appearance="fill">
                     <mat-label>Output</mat-label>
                     <mat-select [(ngModel)]="action.output" name="output">
                         <mat-option *ngFor="let output of outputs" [value]="output.id">
@@ -47,11 +55,19 @@
                         </mat-option>              
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field appearance="fill">
+                <mat-form-field *ngIf="action.type != 'svc'" appearance="fill">
                     <mat-label>Action</mat-label>
                     <mat-select [(ngModel)]="action.action" name="actions">
                         <mat-option *ngFor="let action of actions" [value]="action.value">
                             {{action.viewValue}}
+                        </mat-option>              
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field *ngIf="action.type === 'svc'" appearance="fill">
+                    <mat-label>Action</mat-label>
+                    <mat-select [(ngModel)]="action.action" name="actions">
+                        <mat-option value="reboot">
+                            Reboot
                         </mat-option>              
                     </mat-select>
                 </mat-form-field>

@@ -38,6 +38,7 @@ export interface TAction {
   output: number;
   action: string;
   duration: number;
+  type?: string;
 }  
 
 export interface TTask {
