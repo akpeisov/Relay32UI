@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SelectType, TAction, TOutput, TTask } from '../myinterfaces';
+import { SelectType, TAction, TInput, TOutput, TTask } from '../myinterfaces';
 
 @Component({
   selector: 'app-scheduler-element',
@@ -12,6 +12,7 @@ export class SchedulerElementComponent implements OnInit {
 
   @Input() task!: TTask;
   @Input() outputs!: TOutput[];
+  @Input() inputs!: TInput[];
 
   actions: SelectType[] = [    
     {value: 'on', viewValue: 'On'},
@@ -20,7 +21,8 @@ export class SchedulerElementComponent implements OnInit {
   ];
 
   actiontypes: SelectType[] = [    
-    {value: 's', viewValue: 'Simple'},
+    {value: 'out', viewValue: 'Output'},
+    {value: 'in', viewValue: 'Input'},
     {value: 'svc', viewValue: 'Service'},    
   ];
   
@@ -56,7 +58,8 @@ export class SchedulerElementComponent implements OnInit {
     let action: TAction = {      
       action: "on",
       duration: 0,
-      output: 0
+      output: 0,
+      type: "out"
     };    
     this.task.actions.push(action);
   }

@@ -1,7 +1,7 @@
 <h2>Scheduler page</h2>
 
 <div>
-    <app-scheduler-element *ngFor="let task of tasks" [task]="task" [outputs]="outputs"></app-scheduler-element>
+    <app-scheduler-element *ngFor="let task of tasks" [task]="task" [inputs]= "inputs" [outputs]="outputs"></app-scheduler-element>
     <button mat-raised-button color="primary" (click)="addButton()">Add</button>
     <button mat-raised-button color="primary" (click)="saveButton()">Save</button>
 </div>

@@ -28,6 +28,14 @@
             </mat-expansion-panel-header>      
             <div *ngFor="let rule of input.rules">
                 <mat-form-field appearance="fill">
+                    <mat-label>Type</mat-label>
+                    <mat-select [(ngModel)]="rule.type" name="events">
+                        <mat-option *ngFor="let ruletype of ruletypes" [value]="ruletype.value">
+                            {{ruletype.viewValue}}
+                        </mat-option>              
+                    </mat-select>                                        
+                </mat-form-field>
+                <mat-form-field appearance="fill">
                     <mat-label>Event</mat-label>
                     <mat-select *ngIf="input.type === 'SW'" [(ngModel)]="rule.event" name="events">
                         <mat-option *ngFor="let event of events" [value]="event.value" [disabled]="event.disabled">
@@ -38,7 +46,42 @@
                         <mat-option value="toggle">Toggle</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field appearance="fill">
+                <!-- chain rule -->
+                <div *ngFor="let action of rule.actions">
+                    {{action.id}}
+                    <mat-form-field appearance="fill">
+                        <mat-label>Type</mat-label>
+                        <mat-select [(ngModel)]="action.type" name="output">
+                            <mat-option *ngFor="let actiontype of actiontypes" [value]="actiontype.value">
+                                {{actiontype.viewValue}}
+                            </mat-option>              
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="action.type != 'w'"  appearance="fill">
+                        <mat-label>Output</mat-label>
+                        <mat-select [(ngModel)]="action.output" name="output">
+                            <mat-option *ngFor="let output of outputs" [value]="output.id">
+                                {{output.name}}
+                            </mat-option>              
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="action.type != 'w'" appearance="fill">
+                        <mat-label>Action</mat-label>
+                        <mat-select [(ngModel)]="action.action" name="actions">
+                            <mat-option *ngFor="let action of actions" [value]="action.value">
+                                {{action.viewValue}}
+                            </mat-option>              
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="action.type === 'w'" class="example-full-width" appearance="fill">
+                        <mat-label>Duration, sec</mat-label>
+                        <input [(ngModel)]="action.duration" type="number" matInput placeholder="0">
+                    </mat-form-field>   
+                    <button mat-raised-button color="primary" (click)="deleteChainRuleAction(rule, action)">Delete action</button>
+                </div>
+                <button *ngIf="rule.type === 'chain'" mat-raised-button color="primary" (click)="addChainRuleAction(rule)">Add action</button>
+
+                <mat-form-field *ngIf="rule.type != 'chain'" appearance="fill">
                     <mat-label>Output</mat-label>
                     <!-- TODO: подумать как сюда запихать список выходов. А еще со слейвами надо подумать... -->
                     <mat-select [(ngModel)]="rule.output" name="output">
@@ -47,7 +90,7 @@
                         </mat-option>              
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field appearance="fill">
+                <mat-form-field *ngIf="rule.type != 'chain'" appearance="fill">
                     <mat-label>Action</mat-label>
                     <mat-select [(ngModel)]="rule.action" name="actions">
                         <mat-option *ngFor="let action of actions" [value]="action.value">
@@ -55,16 +98,16 @@
                         </mat-option>              
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field *ngIf="rule.action === 'on'" class="example-full-width" appearance="fill">
+                <mat-form-field *ngIf="rule.type != 'chain' && rule.action === 'on'" class="example-full-width" appearance="fill">
                     <mat-label>Duration, sec</mat-label>
                     <input [(ngModel)]="rule.duration" type="number" matInput placeholder="0">
                 </mat-form-field>                
-                <button mat-raised-button color="primary" (click)="deleteRule(rule)">Delete</button>
+                <button mat-raised-button color="primary" (click)="deleteRule(rule)">Delete rule</button>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            ACL
+                            Access list
                         </mat-panel-title>
                     </mat-expansion-panel-header> 
                     <div *ngFor="let acl of rule.acl">
@@ -106,7 +149,7 @@
                                 </mat-option>              
                             </mat-select>
                         </mat-form-field>
-                        <button mat-raised-button color="primary" (click)="deleteAcl(rule, acl)">Delete</button>
+                        <button mat-raised-button color="primary" (click)="deleteAcl(rule, acl)">Delete ACL</button>
                     </div>   
                     <button mat-raised-button color="primary" (click)="addAcl(rule)">Add acl</button>
                 </mat-expansion-panel>    

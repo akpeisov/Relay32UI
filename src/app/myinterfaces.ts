@@ -18,6 +18,8 @@ export interface TRule {
     duration: number;
     action: string;
     acl?: TACL[];
+    type: string;
+    actions?: TAction[];
   }  
 
 export interface TACL {    
@@ -37,8 +39,10 @@ export interface TInput {
 export interface TAction {
   output: number;
   action: string;
-  duration: number;
-  type?: string;
+  duration?: number;
+  type?: string;  // w(wait) or c(common)
+  input?: number; // for scheduler
+  id?: number;
 }  
 
 export interface TTask {

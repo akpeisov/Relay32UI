@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RestServices } from '../rest.services';
-import { TTask, TOutput } from '../myinterfaces';
+import { TTask, TOutput, TInput } from '../myinterfaces';
 
 @Component({
   selector: 'app-scheduler-page',
@@ -12,10 +12,14 @@ export class SchedulerPageComponent implements OnInit {
   constructor(private restServices: RestServices) { }
   tasks: TTask[];
   outputs!: TOutput[];
+  inputs!: TInput[];
 
   ngOnInit(): void {
     this.restServices.getOutputs().subscribe(data => {
       this.outputs = data;                
+    }, error => console.log(error));
+    this.restServices.getInputs().subscribe(data => {
+      this.inputs = data;                
     }, error => console.log(error));
     this.restServices.getScheduler().subscribe(data => {
       this.tasks = data;         
