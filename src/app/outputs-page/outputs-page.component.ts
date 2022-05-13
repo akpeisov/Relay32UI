@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TOutput } from '../myinterfaces';
+import { NotifierService } from '../notifier.service';
 import { RestServices } from '../rest.services';
 
 @Component({
@@ -9,12 +10,14 @@ import { RestServices } from '../rest.services';
 })
 export class OutputsPageComponent implements OnInit {
 
-  constructor(private restServices: RestServices) { }
+  constructor(private restServices: RestServices,
+              private notifierService: NotifierService) { }
 
   outputs!: TOutput[];
   interval: any;
   settings!: any;
   modBusMaster: boolean = false
+  loading: boolean = true;
 
   ngOnInit(): void {
     this.refreshData(); 
@@ -34,6 +37,7 @@ export class OutputsPageComponent implements OnInit {
   refreshData() {
     this.restServices.getOutputs().subscribe(data => {
       this.outputs = data;          
+      this.loading = false;
     }, error => console.log(error));
 
     this.restServices.getNetwork().subscribe(data => {
@@ -47,8 +51,12 @@ export class OutputsPageComponent implements OnInit {
 
   saveButton() {
     this.restServices.setOutputs(this.outputs).subscribe(data => {
-      console.log(data);          
-    }, error => console.log(error));
+      // console.log(data);          
+      this.notifierService.showMessage('ok', 'ok');
+    }, error => {
+      console.log(error);
+      this.notifierService.showMessage(error, 'error');
+    }); 
     // TODO : get error
   }
 

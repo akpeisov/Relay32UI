@@ -1,6 +1,9 @@
 <h2>Settings page</h2>
 
-<div>
+<mat-progress-spinner *ngIf="loading" class="example-margin" color="primary" mode="indeterminate">
+</mat-progress-spinner>
+
+<div *ngIf="!loading">
     <mat-accordion>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -117,7 +120,7 @@
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>MQTT URL</mat-label>
                         <input [(ngModel)]="settings.mqtt.url" type="text" matInput
-                            placeholder="mqtt://mqtt:mqtt1@192.168.4.7:1883">
+                            placeholder="mqtt://mqtt:mqtt@192.168.4.7:1883">
                     </mat-form-field>
                 </div>
             </div>
@@ -154,7 +157,7 @@
             </mat-expansion-panel-header>
             <div>
                 <mat-checkbox [(ngModel)]="settings.rlog.enabled" class="example-margin">RLOG enabled</mat-checkbox>
-                <div id="ftp" *ngIf="settings.ftp.enabled">
+                <div id="rlog" *ngIf="settings.rlog.enabled">
                     <div>
                         <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Server</mat-label>
@@ -164,7 +167,7 @@
                     <div>
                         <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Port</mat-label>
-                            <input [(ngModel)]="settings.rlog.port" type="number" matInput placeholder="admin">
+                            <input [(ngModel)]="settings.rlog.port" type="number" matInput placeholder=514>
                         </mat-form-field>
                     </div>
                 </div>
@@ -177,30 +180,77 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Mode</mat-label>
-                    <mat-select [(ngModel)]="settings.modbus.mode" name="modes">
-                        <mat-option *ngFor="let mode of modbusModes" [value]="mode.value">
-                            {{mode.viewValue}}
-                        </mat-option>              
-                    </mat-select>
-                </mat-form-field>
-                
-                <!-- <mat-checkbox [(ngModel)]="settings.modbus.enabled" class="example-margin">RLOG enabled</mat-checkbox>
-                <div id="ftp" *ngIf="settings.ftp.enabled">
+                <mat-checkbox [(ngModel)]="settings.modbus.enabled" class="example-margin">ModBus enabled</mat-checkbox>                
+                <div id="modbus" *ngIf="settings.modbus.enabled">
                     <div>
                         <mat-form-field class="example-full-width" appearance="fill">
-                            <mat-label>Server</mat-label>
-                            <input [(ngModel)]="settings.rlog.server" type="text" matInput placeholder="admin">
+                            <mat-label>Mode</mat-label>
+                            <mat-select [(ngModel)]="settings.modbus.mode" name="modes">
+                                <mat-option *ngFor="let mode of modbusModes" [value]="mode.value">
+                                    {{mode.viewValue}}
+                                </mat-option>              
+                            </mat-select>
                         </mat-form-field>
                     </div>
                     <div>
                         <mat-form-field class="example-full-width" appearance="fill">
-                            <mat-label>Port</mat-label>
-                            <input [(ngModel)]="settings.rlog.port" type="number" matInput placeholder="admin">
+                            <mat-label>Type</mat-label>
+                            <mat-select [(ngModel)]="settings.modbus.type" name="types">
+                                <mat-option *ngFor="let type of modbusTypes" [value]="type.value">
+                                    {{type.viewValue}}
+                                </mat-option>              
+                            </mat-select>
                         </mat-form-field>
                     </div>
-                </div> -->
+                </div>
+                <div id="modbus" *ngIf="settings.modbus.enabled && settings.modbus.mode === 'slave'">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Slave id</mat-label>
+                        <input [(ngModel)]="settings.modbus.slaveid" type="number" matInput min="1" max="240" placeholder="1">
+                    </mat-form-field>
+                </div>
+                <div id="modbus" *ngIf="settings.modbus.enabled && settings.modbus.mode === 'master'">
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Polling time, ms</mat-label>
+                            <input [(ngModel)]="settings.modbus.pollingTime" type="number" matInput min="5" max="5000" placeholder="10">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Read timeout, ms</mat-label>
+                            <input [(ngModel)]="settings.modbus.readTimeOut" type="number" matInput min="5" max="2000" placeholder="100">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Maximum send retries</mat-label>
+                            <input [(ngModel)]="settings.modbus.maxRetries" type="number" matInput min="1" max="10" placeholder="3">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-checkbox [(ngModel)]="settings.modbus.actionOnSameSlave" class="example-margin">Execute actions on the same slave</mat-checkbox>                
+                    </div>
+                    <div>                        
+                        <div>Slaves</div>
+                        <div *ngFor="let slave of settings.modbus.slaves">
+                            <div>
+                                <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-label>Slave Id</mat-label>
+                                    <input [(ngModel)]="slave.id" type="number" matInput min="1" max="240" placeholder="3">
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-form-field *ngIf="settings.modbus.type === 'TCP'" class="example-full-width" appearance="fill">
+                                    <mat-label>Slave Id</mat-label>
+                                    <input [(ngModel)]="slave.ip" type="text" matInput placeholder="192.168.18.3">
+                                </mat-form-field>
+                            </div>
+                            <button mat-raised-button color="primary" (click)="delSlaveBtn(slave)">Delete</button>
+                        </div>                            
+                        <button mat-raised-button color="primary" (click)="addSlaveBtn()">Add slave</button>
+                    </div>
+                </div>
             </div>
         </mat-expansion-panel>
     </mat-accordion>

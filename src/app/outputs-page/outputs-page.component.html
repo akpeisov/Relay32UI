@@ -2,5 +2,6 @@
 <div *ngIf="modBusMaster">
     <button mat-raised-button color="basic" (click)="addOutput()">Add virtual output</button>
 </div>
-
-<button mat-raised-button color="primary" (click)="saveButton()">Save</button>
+<mat-progress-spinner *ngIf="loading" class="example-margin" color="primary" mode="indeterminate">
+</mat-progress-spinner>
+<button *ngIf="!loading" mat-raised-button color="primary" (click)="saveButton()">Save</button>

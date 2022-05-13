@@ -1,2 +1,5 @@
-<app-input-element *ngFor="let input of inputs " [input]="input" [outputs]="outputs" [inputs]="inputs"></app-input-element>
-<button mat-raised-button color="primary" (click)="saveButton()">Save</button>
+<app-input-element *ngFor="let input of inputs " [input]="input" [outputs]="outputs" [inputs]="inputs">
+</app-input-element>
+<mat-progress-spinner *ngIf="loading" class="example-margin" color="primary" mode="indeterminate">
+</mat-progress-spinner>
+<button *ngIf="!loading" mat-raised-button color="primary" (click)="saveButton()">Save</button>

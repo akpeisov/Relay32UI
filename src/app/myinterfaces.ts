@@ -68,3 +68,69 @@ export interface SelectType {
     viewValue: string;
     disabled?: boolean;
   }
+
+export interface TMBSlave {
+  id: number,
+  ip?: string
+}
+
+export interface TModBus {
+  enabled: boolean,
+  mode: string,
+  type: string,
+  readTimeOut?: number,
+  pollingTime?: number,
+  actionOnSameSlave?: boolean,
+  maxRetries?: number,
+  slaves?: TMBSlave[],
+  slaveid?: number;
+}
+
+export interface TRLog {
+  enabled: boolean,
+  server: string,
+  port: number
+}
+
+export interface TMQTT {
+  enabled: boolean,
+  url: string 
+}
+
+export interface TFTP {
+  enabled: boolean,
+  user: string,
+  pass: string
+}
+
+export interface TEth {
+  enabled: boolean,
+  dhcp: boolean,
+  ip: string,
+  netmask: string,
+  gateway: string,
+  resetGPIO: number
+}
+
+export interface TWiFi {
+  enabled: boolean,
+  dhcp: boolean,
+  ip: string,
+  netmask: string,
+  gateway: string,
+  ssid: string,
+  pass: string
+}
+
+export interface TSettings {
+    rlog: Partial<TRLog>;
+    eth: Partial<TEth>;
+    wifi: Partial<TWiFi>;    
+    modbus: Partial<TModBus>;
+    mqtt: Partial<TMQTT>;
+    ftp: Partial<TFTP>;
+    dns: string;
+    hostname: string;
+    ntpserver: string;
+    ntpTZ: string;
+}

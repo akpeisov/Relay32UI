@@ -27,12 +27,20 @@ import { InputElementComponent } from './input-element/input-element.component';
 import { SchedulerPageComponent } from './scheduler-page/scheduler-page.component';
 import { SchedulerElementComponent } from './scheduler-element/scheduler-element.component';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDialogModule} from '@angular/material/dialog';
+
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { SystemPageComponent } from './system-page/system-page.component';
+import { NotifierComponent } from './notifier-component/notifier.component';
+import { ConfirmationComponent } from './confirmation.component/confirmation.component';
 
 const appRoutes: Routes = [
   { path: '', component: OutputsPageComponent},
   { path: 'settings', component: SettingsPageComponent},
   { path: 'scheduler', component: SchedulerPageComponent},
   { path: 'inputs', component: InputsPageComponent},
+  { path: 'system', component: SystemPageComponent},
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -45,7 +53,10 @@ const appRoutes: Routes = [
     InputsPageComponent,
     InputElementComponent,
     SchedulerPageComponent,
-    SchedulerElementComponent
+    SchedulerElementComponent,
+    NotifierComponent,
+    SystemPageComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,
@@ -67,8 +78,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
     NgxMatTimepickerModule,
-    // NgxMaterialTimepickerModule,
-    // NgxTimepickerFieldComponent
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,10 @@
+<div>
+    <mat-icon *ngIf="data.type === 'error'">cancel</mat-icon>
+    <mat-icon *ngIf="data.type === 'ok'">check_circle</mat-icon>
+
+    {{data.message}}
+    <!-- <button mat-flat-button>More info</button> -->
+</div>
+<div>
+    <button mat-flat-button (click)="snackBarRef.dismiss()">OK</button>
+</div>

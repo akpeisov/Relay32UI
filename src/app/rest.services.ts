@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TOutput, TInput, TDeviceInfo } from './myinterfaces';
+import { TOutput, TInput } from './myinterfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,6 +16,8 @@ export class RestServices {
   infoUrl = '/ui/deviceInfo'; //'/api/deviceInfo';
   networkUrl = 'service/config/network';
   schedulerUrl = '/service/config/scheduler'
+  rebootUrl = '/service/reboot'
+  upgradeUrl = '/service/upgrade'
 
   public getOutputs(): Observable<TOutput[]> {
     return this.http.get<TOutput[]>(this.outputsUrl);
@@ -50,4 +52,13 @@ export class RestServices {
   public setScheduler(scheduler: any) {
     return this.http.post(this.schedulerUrl, scheduler);
   }
+
+  public rebootDevice() {
+    return this.http.post(this.rebootUrl, {reboot: true});
+  }
+
+  public upgradeDevice() {
+    return this.http.post(this.upgradeUrl, {});
+  }
+  
 }
