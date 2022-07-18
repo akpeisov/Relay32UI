@@ -53,7 +53,7 @@ export class RestServices {
     return this.http.post(this.schedulerUrl, scheduler);
   }
 
-  public rebootDevice() {
+  public rebootDevice() {    
     return this.http.post(this.rebootUrl, {reboot: true});
   }
 

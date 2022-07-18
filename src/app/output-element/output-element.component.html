@@ -38,7 +38,7 @@
         </mat-form-field>
     </div>
     <div>
-        <mat-form-field *ngIf="output.type == null" class="example-full-width" appearance="fill">
+        <mat-form-field *ngIf="output.type === 's'" class="example-full-width" appearance="fill">
             <mat-label>Duration, sec</mat-label>
             <input [(ngModel)]="output.duration" type="number" matInput placeholder="0">
         </mat-form-field>

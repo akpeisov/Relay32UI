@@ -20,8 +20,11 @@ export class SystemPageComponent implements OnInit {
   rebootBtn(): void {    
     this.dialogService.confirmDialog("Are you sure to reboot device?").subscribe(dialogResult => {        
         if (dialogResult) {
-          this.restServices.rebootDevice()
-          this.notifierService.showMessage("Device will be rebooted soon!", 'ok')
+          this.restServices.rebootDevice().subscribe(data => {
+            this.notifierService.showMessage("Device will be rebooted soon!", 'ok')
+          }, error => {
+            this.notifierService.showMessage(error, 'error')
+          });    
         }
     });
   }

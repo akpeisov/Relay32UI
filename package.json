@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build --prod",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build-compress": "ng build && gzipper c ./dist --verbose --include js,css --output-file-format [filename].[ext] ./dist-compressed/"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +21,8 @@
     "@angular/platform-browser": "~13.0.0",
     "@angular/platform-browser-dynamic": "~13.0.0",
     "@angular/router": "~13.0.0",
+    "apexcharts": "^3.35.3",
+    "ng-apexcharts": "^1.7.1",
     "ngx-mat-timepicker": "^13.0.0",
     "ngx-material-timepicker": "^5.5.3",
     "rxjs": "~7.4.0",
@@ -32,6 +35,8 @@
     "@angular/compiler-cli": "~13.0.0",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
+    "brotli-webpack-plugin": "^1.1.0",
+    "compression-webpack-plugin": "^10.0.0",
     "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
